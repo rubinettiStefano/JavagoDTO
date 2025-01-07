@@ -3,9 +3,11 @@ package com.generation.javago;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.generation.javago.model.DTOConverter;
 import com.generation.javago.model.entities.PlaneTicket;
 import com.generation.javago.model.entities.Traveler;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
@@ -15,6 +17,9 @@ import java.time.LocalDateTime;
 class JavagoApplicationTests
 {
 
+	@Autowired
+	DTOConverter dtoConverter;
+
 	@Test
 	void contextLoads() throws JsonProcessingException
 	{
@@ -23,7 +28,7 @@ class JavagoApplicationTests
 		t.setName("Stefano");
 		t.setSurname("Rubinetti");
 		t.setAddress("Via non lo dico, 420");
-		t.setDob(LocalDate.of(1995,8,27));
+		t.setDob(LocalDate.of(1995, 8, 27));
 		t.setEmail("rubinetti.stefano@gmail.com");
 		t.setPhone("3898272664");
 		t.setProfession("Teacher");
@@ -39,8 +44,7 @@ class JavagoApplicationTests
 		pt.setTraveler(t);
 
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		String bigliettoJsonizzato = mapper.writeValueAsString(t);
+		String bigliettoJsonizzato = mapper.writeValueAsString(dtoConverter.toPlaneTicketDTO(pt));
 
 		System.out.println(bigliettoJsonizzato);
 

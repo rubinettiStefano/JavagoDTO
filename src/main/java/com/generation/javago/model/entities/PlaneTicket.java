@@ -16,7 +16,6 @@ public class PlaneTicket extends BaseEntity
 	private String landingAirport;
 	private double price;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "traveler_id")
 	private Traveler traveler;

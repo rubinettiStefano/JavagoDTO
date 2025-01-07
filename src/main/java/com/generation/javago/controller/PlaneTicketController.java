@@ -15,15 +15,13 @@ public class PlaneTicketController
 	ControllerHelper ch;
 
 	@GetMapping("/{id}")
-	public PlaneTicketDTOResp getPlaneTicket
-			(@PathVariable("id") long id)
+	public PlaneTicketDTOResp getPlaneTicket(@PathVariable("id") long id)
 	{
 		return ch.findTicketById(id);
 	}
 
 	@PostMapping
-	public PlaneTicketDTOResp createPlaneTicket
-			(@RequestBody PlaneTicketDTOReq req)
+	public PlaneTicketDTOResp createPlaneTicket(@RequestBody PlaneTicketDTOReq req)
 	{
 		return ch.saveTicket(req);
 	}

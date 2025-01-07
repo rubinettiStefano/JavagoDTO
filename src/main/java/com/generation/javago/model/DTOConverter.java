@@ -1,9 +1,6 @@
 package com.generation.javago.model;
 
-import com.generation.javago.model.dto.PlaneTicketDTOReq;
-import com.generation.javago.model.dto.PlaneTicketDTOResp;
-import com.generation.javago.model.dto.TravelerDTOReq;
-import com.generation.javago.model.dto.TravelerDTOResp;
+import com.generation.javago.model.dto.*;
 import com.generation.javago.model.entities.PlaneTicket;
 import com.generation.javago.model.entities.Traveler;
 import com.generation.javago.model.repositories.PlaneTicketRepository;
@@ -65,9 +62,9 @@ public class DTOConverter
 		return res;
 	}
 
-	public TravelerDTOResp toTravelerDTO(Traveler t)
+	public TravelerDTORespSummary toTravelerDTO(Traveler t)
 	{
-		TravelerDTOResp res = new TravelerDTOResp();
+		TravelerDTORespSummary res = new TravelerDTORespSummary();
 		res.setId(t.getId());
 		res.setName(t.getName());
 		res.setSurname(t.getSurname());
@@ -76,6 +73,31 @@ public class DTOConverter
 		res.setAddress(t.getAddress());
 		res.setProfession(t.getProfession());
 		res.setDob(t.getDob().toString());
+		res.setNumberOfTickets(t.getTickets().size());
+
+		double total = 0;
+
+		for(PlaneTicket ticket : t.getTickets())
+			total += ticket.getPrice();
+
+		res.setTotalSpending(total);
+		return res;
+	}
+
+	public TravelerDTORespDetail toTravelerDTODetail(Traveler t)
+	{
+		TravelerDTORespDetail res = new TravelerDTORespDetail();
+		res.setId(t.getId());
+		res.setName(t.getName());
+		res.setSurname(t.getSurname());
+		res.setPhone(t.getPhone());
+		res.setEmail(t.getEmail());
+		res.setAddress(t.getAddress());
+		res.setProfession(t.getProfession());
+		res.setDob(t.getDob().toString());
+
+		for(PlaneTicket ticket : t.getTickets())
+			res.addTicket(toPlaneTicketDTO(ticket));
 		return res;
 	}
 }

@@ -1,9 +1,8 @@
 package com.generation.javago.controller.helper;
 
-import com.generation.javago.model.dto.PlaneTicketDTOReq;
-import com.generation.javago.model.dto.PlaneTicketDTOResp;
-import com.generation.javago.model.dto.TravelerDTOReq;
-import com.generation.javago.model.dto.TravelerDTOResp;
+import com.generation.javago.model.dto.*;
+
+import java.util.List;
 
 public interface ControllerHelper
 {
@@ -11,7 +10,9 @@ public interface ControllerHelper
 
 	PlaneTicketDTOResp saveTicket(PlaneTicketDTOReq req);
 
-	TravelerDTOResp findTravelerById(long id);
+	TravelerDTORespDetail findTravelerById(long id);
 
-	TravelerDTOResp saveTraveler(TravelerDTOReq req);
+	TravelerDTORespSummary saveTraveler(TravelerDTOReq req);
+
+	List<TravelerDTORespSummary> findAllTravelers();
 }

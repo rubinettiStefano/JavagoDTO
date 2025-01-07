@@ -1,11 +1,33 @@
 package com.generation.javago.model.dto;
 
-public class TravelerDTOResp
+public class TravelerDTORespSummary
 {
 	private Long id;
 	private String name, surname;
 	private String address, email, phone, profession;
 	private String dob;
+	private double totalSpending;
+	private int numberOfTickets;
+
+	public double getTotalSpending()
+	{
+		return totalSpending;
+	}
+
+	public void setTotalSpending(double totalSpending)
+	{
+		this.totalSpending = totalSpending;
+	}
+
+	public int getNumberOfTickets()
+	{
+		return numberOfTickets;
+	}
+
+	public void setNumberOfTickets(int numberOfTickets)
+	{
+		this.numberOfTickets = numberOfTickets;
+	}
 
 	public Long getId()
 	{

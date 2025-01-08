@@ -58,7 +58,8 @@ public class DTOConverter
 		res.setEmail(dto.getEmail());
 		res.setAddress(dto.getAddress());
 		res.setProfession(dto.getProfession());
-		res.setDob(LocalDate.parse(dto.getDob()));
+		if(dto.getDob() != null)
+			res.setDob(LocalDate.parse(dto.getDob()));
 		return res;
 	}
 
@@ -72,7 +73,8 @@ public class DTOConverter
 		res.setEmail(t.getEmail());
 		res.setAddress(t.getAddress());
 		res.setProfession(t.getProfession());
-		res.setDob(t.getDob().toString());
+		if(res.getDob() != null)
+			res.setDob(t.getDob().toString());
 		res.setNumberOfTickets(t.getTickets().size());
 
 		double total = 0;

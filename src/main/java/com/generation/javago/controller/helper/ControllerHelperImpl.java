@@ -1,5 +1,6 @@
 package com.generation.javago.controller.helper;
 
+import com.generation.javago.controller.exception.EntityNotFoundException;
 import com.generation.javago.model.DTOConverter;
 import com.generation.javago.model.dto.*;
 import com.generation.javago.model.entities.PlaneTicket;
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * Implements ......
+ */
 @Service
 public class ControllerHelperImpl implements ControllerHelper
 {
@@ -22,27 +27,54 @@ public class ControllerHelperImpl implements ControllerHelper
 	@Autowired
 	TravelerRepository tRepo;
 
+
+	/**
+	 * Finds a plane ticket by its unique identifier.
+	 *
+	 * @param id the unique identifier of the plane ticket; must be a positive number.
+	 * @return an instance of PlaneTicketDTOResp containing the plane ticket details.
+	 * @throws IllegalArgumentException if the provided id is less than or equal to 0.
+	 * @throws EntityNotFoundException if no plane ticket is found with the given id.
+	 */
 	@Override
-	public PlaneTicketDTOResp findTicketById(long id)
+	public PlaneTicketDTOResp findTicketById(long id) throws IllegalArgumentException, EntityNotFoundException
 	{
-		PlaneTicket pt = pRepo.findById(id).get();
-		return dtoConverter.toPlaneTicketDTO(pt);
+		if(id<=0)
+			throw new IllegalArgumentException(id +" is not a valid id");
+
+		Optional<PlaneTicket> pt = pRepo.findById(id);
+
+		if(pt.isEmpty())
+			throw new EntityNotFoundException("No plane ticket with id "+id+" found");
+
+		return dtoConverter.toPlaneTicketDTO(pt.get());
+	}
+
+
+	@Override
+	public TravelerDTORespDetail findTravelerById(long id) throws IllegalArgumentException
+	{
+
+		if(id<=0)
+			throw new IllegalArgumentException(id +" is not a valid id");
+		Optional<Traveler> t = tRepo.findById(id);
+
+		if(t.isEmpty())
+			return null;
+
+		return dtoConverter.toTravelerDTODetail(t.get());
 	}
 
 	@Override
 	public PlaneTicketDTOResp saveTicket(PlaneTicketDTOReq req)
 	{
+
 		PlaneTicket pt = dtoConverter.toPlaneTicket(req);
 		pRepo.save(pt);
 		return dtoConverter.toPlaneTicketDTO(pt);
 	}
 
-	@Override
-	public TravelerDTORespDetail findTravelerById(long id)
-	{
-		Traveler t = tRepo.findById(id).get();
-		return dtoConverter.toTravelerDTODetail(t);
-	}
+
 
 	@Override
 	public TravelerDTORespSummary saveTraveler(TravelerDTOReq req)

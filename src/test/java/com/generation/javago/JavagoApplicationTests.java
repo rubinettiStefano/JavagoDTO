@@ -12,41 +12,41 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 @SpringBootTest
 class JavagoApplicationTests
 {
 
-	@Autowired
-	DTOConverter dtoConverter;
 
 	@Test
 	void contextLoads() throws JsonProcessingException
 	{
+		List<Integer> numeri = new ArrayList<>();
+		numeri.add(1);
+		numeri.add(222);
+		numeri.add(2);
+		numeri.add(2752);
+		numeri.add(2572);
+		numeri.add(56);
+		numeri.add(123);
+		numeri.add(24);
 
-		Traveler t = new Traveler();
-		t.setName("Stefano");
-		t.setSurname("Rubinetti");
-		t.setAddress("Via non lo dico, 420");
-		t.setDob(LocalDate.of(1995, 8, 27));
-		t.setEmail("rubinetti.stefano@gmail.com");
-		t.setPhone("3898272664");
-		t.setProfession("Teacher");
+		 //collezione AMORFA (senza una vera e propria struttura) pensata per LAVORARE sui dati che contiene
 
+		//parto da una collezione vera (lista,array,set,ecc..), la converto in uno stream, che alla fine riconverto in una collezione vera
 
-		PlaneTicket pt = new PlaneTicket();
-		pt.setPrice(19.98);
-		pt.setStartingAirport("Torino Caselle");
-		pt.setLandingAirport("Antartica");
-		pt.setTakeOffTime(LocalDateTime.now());
+		//lista int -> Stream<Integer>
+		List<Integer> numeriFiltrati =  numeri.stream().filter(n->n>20).toList();
 
-		t.getTickets().add(pt);
-		pt.setTraveler(t);
+		String[] parole = new String[3];
 
-		ObjectMapper mapper = new ObjectMapper();
-		String bigliettoJsonizzato = mapper.writeValueAsString(dtoConverter.toPlaneTicketDTO(pt));
+		parole[0] = "aa";
+		parole[1] = "bb";
+		parole[2] = "cc";
 
-		System.out.println(bigliettoJsonizzato);
 
 	}
 

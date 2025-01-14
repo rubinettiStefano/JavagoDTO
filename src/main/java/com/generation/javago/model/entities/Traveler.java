@@ -7,9 +7,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent the traveler, a person that use our application
+ * to buy Planes Tickets .....
+ */
 @Entity
 public class Traveler extends BaseEntity
 {
+
 	private String name, surname;
 	private String address, email, phone, profession;
 	private LocalDate dob;
@@ -17,6 +22,19 @@ public class Traveler extends BaseEntity
 
 	@OneToMany(mappedBy = "traveler")
 	private List<PlaneTicket> tickets = new ArrayList<>();
+
+	public Traveler(){}
+
+	public Traveler(String name, String surname, String address, String email, String phone, String profession, LocalDate dob)
+	{
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		this.email = email;
+		this.phone = phone;
+		this.profession = profession;
+		this.dob = dob;
+	}
 
 	public String getName()
 	{

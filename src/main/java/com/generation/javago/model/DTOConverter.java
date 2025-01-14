@@ -73,7 +73,7 @@ public class DTOConverter
 		res.setEmail(t.getEmail());
 		res.setAddress(t.getAddress());
 		res.setProfession(t.getProfession());
-		if(res.getDob() != null)
+		if(t.getDob() != null)
 			res.setDob(t.getDob().toString());
 		res.setNumberOfTickets(t.getTickets().size());
 

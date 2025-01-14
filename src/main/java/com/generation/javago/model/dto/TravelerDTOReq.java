@@ -2,6 +2,9 @@ package com.generation.javago.model.dto;
 
 import java.time.LocalDate;
 
+/**
+ * DTO used by POST-PUT
+ */
 public class TravelerDTOReq
 {
 	private String name, surname;

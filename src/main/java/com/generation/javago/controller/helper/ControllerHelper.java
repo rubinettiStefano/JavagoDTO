@@ -28,4 +28,6 @@ public interface ControllerHelper
 	TravelerDTORespSummary saveTraveler(TravelerDTOReq req);
 
 	List<TravelerDTORespSummary> findAllTravelers();
+
+	List<PlaneTicketDTOResp> findAllTickets();
 }

@@ -96,4 +96,10 @@ public class ControllerHelperImpl implements ControllerHelper
 
 		return res;
 	}
+
+	@Override
+	public List<PlaneTicketDTOResp> findAllTickets()
+	{
+		return pRepo.findAll().stream().map(d-> dtoConverter.toPlaneTicketDTO(d)).toList();
+	}
 }

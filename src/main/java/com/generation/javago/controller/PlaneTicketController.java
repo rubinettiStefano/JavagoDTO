@@ -6,6 +6,8 @@ import com.generation.javago.model.dto.PlaneTicketDTOResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/tickets")
 public class PlaneTicketController
@@ -13,6 +15,12 @@ public class PlaneTicketController
 
 	@Autowired
 	ControllerHelper ch;
+
+	@GetMapping
+	public List<PlaneTicketDTOResp> getAllTickets()
+	{
+		return ch.findAllTickets();
+	}
 
 	@GetMapping("/{id}")
 	public PlaneTicketDTOResp getPlaneTicket(@PathVariable("id") long id)
